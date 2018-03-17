@@ -7,14 +7,15 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.util.ReflectionTestUtils;
 
 
 @RunWith(SpringRunner.class)
+@TestPropertySource(properties = {"app.count=100", "app.countStr=100"})
 public class SampleServiceTest {
 
-	@Autowired
+	@Autowired	
 	private SampleService sampleService;
 	
 	@TestConfiguration
@@ -22,14 +23,15 @@ public class SampleServiceTest {
 
 		@Bean
 		public SampleService sampleService() {
-			return new SampleService();
+			 SampleService  sampleService = new SampleService();
+		        sampleService.setCount(100);
+		        sampleService.setCountStr("100");
+		        return sampleService; 
 		}
 	}
 	
 	@Before
 	public void init() {
-		ReflectionTestUtils.setField(sampleService, "count", new Integer(100));
-		ReflectionTestUtils.setField(sampleService, "countStr", 100);
 	}
 	
 	@Test

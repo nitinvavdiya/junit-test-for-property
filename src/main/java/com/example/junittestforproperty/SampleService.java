@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 public class SampleService {
 
 	@Value("${app.count}")
-	private int count;
+	private Integer count;
 	
 	@Value("${app.countStr}")
 	private String countStr;
